@@ -3,7 +3,7 @@ package hr.tvz.konjetic.goboardgame;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class GoController {
     @FXML
     private Label welcomeText;
 

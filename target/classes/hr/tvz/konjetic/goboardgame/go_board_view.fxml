@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<VBox alignment="CENTER" maxWidth="0.0" prefHeight="650.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.tvz.konjetic.goboardgame.GoController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <MenuBar prefHeight="21.0" prefWidth="500.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#saveGame" text="Save Game" />
+                  <MenuItem mnemonicParsing="false" onAction="#loadGame" text="Load Game" />
+               </items>
+            </Menu>
+            <Menu text="Edit">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Delete" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <AnchorPane maxWidth="600.0" prefHeight="650.0" prefWidth="500.0">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <children>
+            <AnchorPane layoutX="1.0" prefHeight="650.0" prefWidth="500.0">
+               <children>
+                  <GridPane gridLinesVisible="true" layoutX="63.0" layoutY="56.0" prefHeight="364.0" prefWidth="373.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+                  <AnchorPane fx:id="circleAnchorPane" layoutX="40.0" layoutY="38.0" prefHeight="398.0" prefWidth="419.0">
+                     <children>
+                        <Circle fx:id="circle10" fill="TRANSPARENT" layoutX="25.0" layoutY="63.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle36" fill="TRANSPARENT" layoutX="305.0" layoutY="154.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle35" fill="TRANSPARENT" layoutX="258.0" layoutY="154.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle34" fill="TRANSPARENT" layoutX="210.0" layoutY="154.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle33" fill="TRANSPARENT" layoutX="164.0" layoutY="154.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle32" fill="TRANSPARENT" layoutX="117.0" layoutY="154.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle31" fill="TRANSPARENT" layoutX="69.0" layoutY="154.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle30" fill="TRANSPARENT" layoutX="25.0" layoutY="154.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle28" fill="TRANSPARENT" layoutX="398.0" layoutY="108.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle27" fill="TRANSPARENT" layoutX="352.0" layoutY="108.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle26" fill="TRANSPARENT" layoutX="305.0" layoutY="108.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle25" fill="TRANSPARENT" layoutX="258.0" layoutY="108.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle24" fill="TRANSPARENT" layoutX="210.0" layoutY="108.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle23" fill="TRANSPARENT" layoutX="164.0" layoutY="108.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle22" fill="TRANSPARENT" layoutX="117.0" layoutY="108.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle21" fill="TRANSPARENT" layoutX="69.0" layoutY="108.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle20" fill="TRANSPARENT" layoutX="24.0" layoutY="108.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle18" fill="TRANSPARENT" layoutX="398.0" layoutY="63.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle17" fill="TRANSPARENT" layoutX="352.0" layoutY="63.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle16" fill="TRANSPARENT" layoutX="305.0" layoutY="63.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle15" fill="TRANSPARENT" layoutX="258.0" layoutY="63.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle14" fill="TRANSPARENT" layoutX="210.0" layoutY="62.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle13" fill="TRANSPARENT" layoutX="164.0" layoutY="63.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle12" fill="TRANSPARENT" layoutX="117.0" layoutY="63.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle11" fill="TRANSPARENT" layoutX="69.0" layoutY="63.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle08" fill="TRANSPARENT" layoutX="398.0" layoutY="21.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle07" fill="TRANSPARENT" layoutX="352.0" layoutY="21.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle06" fill="TRANSPARENT" layoutX="305.0" layoutY="21.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle05" fill="TRANSPARENT" layoutX="258.0" layoutY="21.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle04" fill="TRANSPARENT" layoutX="210.0" layoutY="21.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle03" fill="TRANSPARENT" layoutX="164.0" layoutY="21.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle02" fill="TRANSPARENT" layoutX="117.0" layoutY="20.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle01" fill="TRANSPARENT" layoutX="69.0" layoutY="20.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle00" fill="TRANSPARENT" layoutX="25.0" layoutY="21.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle71" fill="TRANSPARENT" layoutX="69.0" layoutY="337.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle70" fill="TRANSPARENT" layoutX="24.0" layoutY="337.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle68" fill="TRANSPARENT" layoutX="398.0" layoutY="291.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle67" fill="TRANSPARENT" layoutX="352.0" layoutY="291.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle66" fill="TRANSPARENT" layoutX="305.0" layoutY="291.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle65" fill="TRANSPARENT" layoutX="258.0" layoutY="291.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle64" fill="TRANSPARENT" layoutX="210.0" layoutY="291.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle63" fill="TRANSPARENT" layoutX="164.0" layoutY="291.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle62" fill="TRANSPARENT" layoutX="117.0" layoutY="291.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle61" fill="TRANSPARENT" layoutX="69.0" layoutY="291.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle60" fill="TRANSPARENT" layoutX="24.0" layoutY="291.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle58" fill="TRANSPARENT" layoutX="398.0" layoutY="246.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle57" fill="TRANSPARENT" layoutX="352.0" layoutY="246.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle56" fill="TRANSPARENT" layoutX="305.0" layoutY="246.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle55" fill="TRANSPARENT" layoutX="258.0" layoutY="246.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle54" fill="TRANSPARENT" layoutX="210.0" layoutY="246.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle53" fill="TRANSPARENT" layoutX="164.0" layoutY="246.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle52" fill="TRANSPARENT" layoutX="117.0" layoutY="246.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle51" fill="TRANSPARENT" layoutX="69.0" layoutY="246.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle50" fill="TRANSPARENT" layoutX="24.0" layoutY="246.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle48" fill="TRANSPARENT" layoutX="398.0" layoutY="199.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle47" fill="TRANSPARENT" layoutX="352.0" layoutY="199.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle46" fill="TRANSPARENT" layoutX="305.0" layoutY="199.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle45" fill="TRANSPARENT" layoutX="258.0" layoutY="199.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle44" fill="TRANSPARENT" layoutX="210.0" layoutY="199.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle43" fill="TRANSPARENT" layoutX="164.0" layoutY="199.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle42" fill="TRANSPARENT" layoutX="117.0" layoutY="199.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle41" fill="TRANSPARENT" layoutX="69.0" layoutY="199.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle40" fill="TRANSPARENT" layoutX="24.0" layoutY="199.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle38" fill="TRANSPARENT" layoutX="398.0" layoutY="154.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle37" fill="TRANSPARENT" layoutX="352.0" layoutY="154.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle83" fill="TRANSPARENT" layoutX="164.0" layoutY="381.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle82" fill="TRANSPARENT" layoutX="117.0" layoutY="381.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle81" fill="TRANSPARENT" layoutX="69.0" layoutY="381.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle80" fill="TRANSPARENT" layoutX="23.0" layoutY="381.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle78" fill="TRANSPARENT" layoutX="398.0" layoutY="337.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle77" fill="TRANSPARENT" layoutX="352.0" layoutY="336.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle76" fill="TRANSPARENT" layoutX="305.0" layoutY="337.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle75" fill="TRANSPARENT" layoutX="258.0" layoutY="337.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle74" fill="TRANSPARENT" layoutX="210.0" layoutY="337.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle73" fill="TRANSPARENT" layoutX="164.0" layoutY="337.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle72" fill="TRANSPARENT" layoutX="117.0" layoutY="337.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle88" fill="TRANSPARENT" layoutX="398.0" layoutY="381.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle87" fill="TRANSPARENT" layoutX="352.0" layoutY="381.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle86" fill="TRANSPARENT" layoutX="305.0" layoutY="384.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle85" fill="TRANSPARENT" layoutX="258.0" layoutY="381.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="circle84" fill="TRANSPARENT" layoutX="210.0" layoutY="381.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

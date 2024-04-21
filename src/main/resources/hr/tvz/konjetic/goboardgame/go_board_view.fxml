@@ -61,7 +61,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                   </GridPane>
-                  <AnchorPane layoutX="40.0" layoutY="38.0" prefHeight="398.0" prefWidth="419.0">
+                  <AnchorPane fx:id="circleAnchorPane" layoutX="40.0" layoutY="38.0" prefHeight="398.0" prefWidth="419.0">
                      <children>
                         <Circle fx:id="circle10" fill="TRANSPARENT" layoutX="25.0" layoutY="63.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
                         <Circle fx:id="circle36" fill="TRANSPARENT" layoutX="305.0" layoutY="154.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />

@@ -2,185 +2,34 @@ package hr.tvz.konjetic.goboardgame;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.stage.PopupWindow;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GoController {
 
     private static final int BOARD_DIMENSIONS = 9;
+    private static final int MAX_TERRITORY = 81;
     private static final Color COLOR_NOT_PLAYED = Color.TRANSPARENT;
     private static final Color COLOR_PLAYER_ONE = Color.BLACK;
     private static final Color COLOR_PLAYER_TWO = Color.WHITE;
 
-
     @FXML
-    private Circle circle00;
-    @FXML
-    private Circle circle01;
-    @FXML
-    private Circle circle02;
-    @FXML
-    private Circle circle03;
-    @FXML
-    private Circle circle04;
-    @FXML
-    private Circle circle05;
-    @FXML
-    private Circle circle06;
-    @FXML
-    private Circle circle07;
-    @FXML
-    private Circle circle08;
-    @FXML
-    private Circle circle10;
-    @FXML
-    private Circle circle11;
-    @FXML
-    private Circle circle12;
-    @FXML
-    private Circle circle13;
-    @FXML
-    private Circle circle14;
-    @FXML
-    private Circle circle15;
-    @FXML
-    private Circle circle16;
-    @FXML
-    private Circle circle17;
-    @FXML
-    private Circle circle18;
-    @FXML
-    private Circle circle20;
-    @FXML
-    private Circle circle21;
-    @FXML
-    private Circle circle22;
-    @FXML
-    private Circle circle23;
-    @FXML
-    private Circle circle24;
-    @FXML
-    private Circle circle25;
-    @FXML
-    private Circle circle26;
-    @FXML
-    private Circle circle27;
-    @FXML
-    private Circle circle28;
-    @FXML
-    private Circle circle30;
-    @FXML
-    private Circle circle31;
-    @FXML
-    private Circle circle32;
-    @FXML
-    private Circle circle33;
-    @FXML
-    private Circle circle34;
-    @FXML
-    private Circle circle35;
-    @FXML
-    private Circle circle36;
-    @FXML
-    private Circle circle37;
-    @FXML
-    private Circle circle38;
-    @FXML
-    private Circle circle40;
-    @FXML
-    private Circle circle41;
-    @FXML
-    private Circle circle42;
-    @FXML
-    private Circle circle43;
-    @FXML
-    private Circle circle44;
-    @FXML
-    private Circle circle45;
-    @FXML
-    private Circle circle46;
-    @FXML
-    private Circle circle47;
-    @FXML
-    private Circle circle48;
-    @FXML
-    private Circle circle50;
-    @FXML
-    private Circle circle51;
-    @FXML
-    private Circle circle52;
-    @FXML
-    private Circle circle53;
-    @FXML
-    private Circle circle54;
-    @FXML
-    private Circle circle55;
-    @FXML
-    private Circle circle56;
-    @FXML
-    private Circle circle57;
-    @FXML
-    private Circle circle58;
-    @FXML
-    private Circle circle60;
-    @FXML
-    private Circle circle61;
-    @FXML
-    private Circle circle62;
-    @FXML
-    private Circle circle63;
-    @FXML
-    private Circle circle64;
-    @FXML
-    private Circle circle65;
-    @FXML
-    private Circle circle66;
-    @FXML
-    private Circle circle67;
-    @FXML
-    private Circle circle68;
-    @FXML
-    private Circle circle70;
-    @FXML
-    private Circle circle71;
-    @FXML
-    private Circle circle72;
-    @FXML
-    private Circle circle73;
-    @FXML
-    private Circle circle74;
-    @FXML
-    private Circle circle75;
-    @FXML
-    private Circle circle76;
-    @FXML
-    private Circle circle77;
-    @FXML
-    private Circle circle78;
-    @FXML
-    private Circle circle80;
-    @FXML
-    private Circle circle81;
-    @FXML
-    private Circle circle82;
-    @FXML
-    private Circle circle83;
-    @FXML
-    private Circle circle84;
-    @FXML
-    private Circle circle85;
-    @FXML
-    private Circle circle86;
-    @FXML
-    private Circle circle87;
-    @FXML
-    private Circle circle88;
+    AnchorPane circleAnchorPane;
 
     private static Boolean firstPlayerTurn = true;
     private Color[][] stoneBoard = new Color[BOARD_DIMENSIONS][BOARD_DIMENSIONS];
+
+    public Integer capturedP1Stones = 0;
+    public Integer capturedP2Stones = 0;
+
+    public Integer playerOneTerritory = 0;
+    public Integer playerTwoTerritory = 0;
 
     //postavljanje vrijednosti prazne boje na sva polja
     @FXML
@@ -207,6 +56,27 @@ public class GoController {
                 System.out.println(stoneBoard[row][column].toString());
                 circle.setFill(stoneBoard[row][column]);
                 circle.setStrokeWidth(1);
+                captureTerritory(firstPlayerTurn ? COLOR_PLAYER_ONE : COLOR_PLAYER_TWO);
+                calculateTerritory();
+
+                if ((playerOneTerritory + playerTwoTerritory) >= MAX_TERRITORY){
+                    if((playerOneTerritory + capturedP2Stones) > (playerTwoTerritory + capturedP1Stones)){
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("WINNER!!!");
+                        alert.setHeaderText("Player 1 WON!");
+                        alert.setContentText("Game finished.");
+                        alert.show();
+                    } else{
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("WINNER!!!");
+                        alert.setHeaderText("Player 2 WON!");
+                        alert.setContentText("Game finished.");
+                        alert.show();
+                    }
+
+                    resetGame();
+                }
+
                 firstPlayerTurn = !firstPlayerTurn;
             }
         }
@@ -214,8 +84,127 @@ public class GoController {
 
     }
 
-    //validno je ako je neobojano dosad
     private boolean isPositionValid(int row, int column) {
         return stoneBoard[row][column].equals(COLOR_NOT_PLAYED);
     }
+
+    private void calculateTerritory(){
+        playerOneTerritory = calculateSpecificPlayerTerritory(COLOR_PLAYER_ONE);
+        playerTwoTerritory = calculateSpecificPlayerTerritory(COLOR_PLAYER_TWO);
+
+        System.out.println("Player one has: " + playerOneTerritory + " and player two has: " + playerTwoTerritory);
+
+    }
+
+    private Integer calculateSpecificPlayerTerritory(Color color){
+        Integer numberOfTerritories = 0;
+        for (int i = 0; i < BOARD_DIMENSIONS; i++){
+            for (int j = 0; j < BOARD_DIMENSIONS; j++){
+                if (
+                        stoneBoard[i][j].equals(color)
+                ){
+                    numberOfTerritories++;
+                }else if(stoneBoard[i][j].equals(COLOR_NOT_PLAYED)){
+                    {
+                        List<int[]> neighbors = getPositionsNeighbors(i, j);
+                        numberOfTerritories += calculateEmptyPositionsTerritoryPoints(color, neighbors);
+                    }
+                }
+            }
+        }
+
+        return numberOfTerritories;
+    }
+    //broje se orazna polja koja imaju obojane susjede
+    private Integer calculateEmptyPositionsTerritoryPoints(Color color, List<int[]> neighbors){
+        Integer territoryPoints = 0;
+
+        for (int[] neighbor : neighbors){
+            int row = neighbor[0];
+            int column = neighbor[1];
+
+            if (stoneBoard[row][column].equals(color)){
+                territoryPoints++;
+            }
+        }
+
+        return territoryPoints;
+    }
+
+    //traženje susjeda
+    private List<int[]> getPositionsNeighbors(int row, int column){
+        List<int[]> neighbors = new ArrayList<>();
+
+        if (row - 1 >= 0) {
+            neighbors.add(new int[]{row - 1, column});
+        }
+        if (row + 1 < BOARD_DIMENSIONS) {
+            neighbors.add(new int[]{row + 1, column});
+        }
+        if (column - 1 >= 0) {
+            neighbors.add(new int[]{row, column - 1});
+        }
+        if (column + 1 < BOARD_DIMENSIONS) {
+            neighbors.add(new int[]{row, column + 1});
+        }
+
+        return neighbors;
+    }
+
+    //brisanje okupiranih
+    private void captureTerritory(Color playerColor){
+
+        for(int i = 0; i < BOARD_DIMENSIONS; i++){
+            for(int j = 0; j < BOARD_DIMENSIONS; j++) {
+                if (!stoneBoard[i][j].equals(COLOR_NOT_PLAYED) && !stoneBoard[i][j].equals(playerColor)){
+                    List<int[]> neighbors = getPositionsNeighbors(i, j);
+                Integer dangerousNeighbors = 0;
+                for (int[] neighbor : neighbors) {
+                    int r = neighbor[0];
+                    int c = neighbor[1];
+                    if (stoneBoard[r][c].equals(playerColor)) {
+                        dangerousNeighbors++;
+                        System.out.println("dn" + dangerousNeighbors);
+                    }
+                    if (dangerousNeighbors == neighbors.size()) {
+                        stoneBoard[i][j] = COLOR_NOT_PLAYED;
+                        Circle capturedCircle = getCircleByPosition(i, j);
+                        capturedCircle.setFill(COLOR_NOT_PLAYED);
+                        capturedCircle.setStrokeWidth(0);
+                        if (firstPlayerTurn) {
+                            capturedP2Stones++;
+                        } else {
+                            capturedP1Stones++;
+                        }
+                    }
+                }
+            }
+
+            }
+        }
+    }
+
+    private Circle getCircleByPosition(int row, int column){
+
+        Circle circle = (Circle) circleAnchorPane.lookup("#circle"+row+column);
+
+        return circle;
+    }
+
+    private void resetGame() {
+        circleAnchorPane.getChildren().forEach(node -> {
+            if (node instanceof Circle) {
+                Circle circle = (Circle) node;
+                circle.setFill(COLOR_NOT_PLAYED);
+                circle.setStrokeWidth(0);
+            }
+        });
+
+        for (int i = 0; i < BOARD_DIMENSIONS; i++){
+            for(int j = 0; j < BOARD_DIMENSIONS; j++){
+                stoneBoard[i][j] = COLOR_NOT_PLAYED;
+            }
+        }
+    }
+
 }

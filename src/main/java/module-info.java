@@ -2,6 +2,7 @@ module hr.tvz.konjetic.goboardgame {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
+    requires static lombok;
 
 
     opens hr.tvz.konjetic.goboardgame to javafx.fxml;

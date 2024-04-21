@@ -1,5 +1,7 @@
 package hr.tvz.konjetic.goboardgame;
 
+import hr.tvz.konjetic.goboardgame.model.GameState;
+import hr.tvz.konjetic.goboardgame.utils.DialogUtils;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -8,12 +10,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.PopupWindow;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static hr.tvz.konjetic.goboardgame.model.GameState.BOARD_DIMENSIONS;
+
 public class GoController {
 
-    private static final int BOARD_DIMENSIONS = 9;
+
     private static final int MAX_TERRITORY = 81;
     private static final Color COLOR_NOT_PLAYED = Color.TRANSPARENT;
     private static final Color COLOR_PLAYER_ONE = Color.BLACK;
@@ -30,6 +35,8 @@ public class GoController {
 
     public Integer playerOneTerritory = 0;
     public Integer playerTwoTerritory = 0;
+
+    public Integer numberOfTurns = 0;
 
     //postavljanje vrijednosti prazne boje na sva polja
     @FXML
@@ -204,6 +211,45 @@ public class GoController {
             for(int j = 0; j < BOARD_DIMENSIONS; j++){
                 stoneBoard[i][j] = COLOR_NOT_PLAYED;
             }
+        }
+    }
+
+    public void saveGame(){
+        String[][] stringGameState = GameState.covertGameStateWithColorsToString(stoneBoard);
+
+        GameState gameStateToSave = new GameState(stringGameState, numberOfTurns);
+
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("saveGame/gameSave.dat"))){
+            oos.writeObject(gameStateToSave);
+            DialogUtils.showSuccessDialog("Game was successfully saved!");
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+
+    }
+
+    public void loadGame(){
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("saveGame/gameSave.dat"))){
+           GameState gameStateToLoad = (GameState) ois.readObject();
+
+           stoneBoard = GameState.covertGameStateWithStringToColor(gameStateToLoad.getGameBoardState());
+
+           for (int i = 0; i < BOARD_DIMENSIONS; i++){
+               for (int j = 0; j < BOARD_DIMENSIONS; j++){
+                   Circle circle = (Circle) circleAnchorPane.lookup("#circle"+i+j);
+                   circle.setFill(stoneBoard[i][j]);
+                   if (stoneBoard[i][j] != Color.valueOf("#00000000")) {
+                       circle.setStrokeWidth(1);
+                   } else {
+                       circle.setStrokeWidth(0);
+                   }
+               }
+           }
+
+           DialogUtils.showSuccessDialog("Game was successfully loaded!");
+
+        } catch (IOException | ClassNotFoundException ex){
+            ex.printStackTrace();
         }
     }
 

@@ -9,8 +9,5 @@
         <module name="goBoardGame" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="goBoardGame" target="0" />
-    </bytecodeTargetLevel>
   </component>
 </project>

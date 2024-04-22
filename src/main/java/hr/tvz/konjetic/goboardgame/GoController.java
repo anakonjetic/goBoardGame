@@ -2,6 +2,7 @@ package hr.tvz.konjetic.goboardgame;
 
 import hr.tvz.konjetic.goboardgame.model.GameState;
 import hr.tvz.konjetic.goboardgame.utils.DialogUtils;
+import hr.tvz.konjetic.goboardgame.utils.DocumentationUtils;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -11,6 +12,12 @@ import javafx.scene.shape.Circle;
 import javafx.stage.PopupWindow;
 
 import java.io.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -253,4 +260,8 @@ public class GoController {
         }
     }
 
+    public void generateHTMLDocumentation(){
+        DocumentationUtils.generateDocumentation();
+        DialogUtils.showSuccessDialog("Documentation was successfully generated!");
+    }
 }

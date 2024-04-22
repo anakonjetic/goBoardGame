@@ -42,7 +42,7 @@
             </Menu>
             <Menu text="Edit">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem mnemonicParsing="false" onAction="#generateHTMLDocumentation" text="Generate" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">

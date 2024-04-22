@@ -5,6 +5,7 @@ import hr.tvz.konjetic.goboardgame.utils.DialogUtils;
 import hr.tvz.konjetic.goboardgame.utils.DocumentationUtils;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -15,6 +16,7 @@ import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,10 +34,11 @@ public class GoController {
     private static final Color COLOR_PLAYER_TWO = Color.WHITE;
 
     @FXML
-    AnchorPane circleAnchorPane;
+    public AnchorPane circleAnchorPane;
 
     private static Boolean firstPlayerTurn = true;
-    private Color[][] stoneBoard = new Color[BOARD_DIMENSIONS][BOARD_DIMENSIONS];
+    public static Color[][] stoneBoard = new Color[BOARD_DIMENSIONS][BOARD_DIMENSIONS];
+    public static Circle[][] circleBoard = new Circle[BOARD_DIMENSIONS][BOARD_DIMENSIONS];
 
     public Integer capturedP1Stones = 0;
     public Integer capturedP2Stones = 0;
@@ -53,6 +56,15 @@ public class GoController {
                 stoneBoard[i][j] = COLOR_NOT_PLAYED;
             }
         }
+
+        for (int i = 0; i < BOARD_DIMENSIONS; i++){
+            for (int j = 0; j < BOARD_DIMENSIONS; j++){
+                Circle circle = (Circle) circleAnchorPane.lookup("#circle"+i+j);
+                circleBoard[i][j] = circle;
+            }
+        }
+
+
     }
 
     @FXML
@@ -64,6 +76,8 @@ public class GoController {
             int row = Character.getNumericValue(circle.getId().charAt(6));
             int column = Character.getNumericValue(circle.getId().charAt(7));
 
+
+
             //boja kuglu
             if (isPositionValid(row, column)) {
                 stoneBoard[row][column] = firstPlayerTurn ? COLOR_PLAYER_ONE : COLOR_PLAYER_TWO;
@@ -71,6 +85,34 @@ public class GoController {
                 circle.setFill(stoneBoard[row][column]);
                 circle.setStrokeWidth(1);
                 captureTerritory(firstPlayerTurn ? COLOR_PLAYER_ONE : COLOR_PLAYER_TWO);
+                numberOfTurns++;
+
+                //OVDJE JE UPDATEAN GAME STATE
+                GameState gameState = new GameState();
+
+                gameState.setGameBoardState(new String[GameState.BOARD_DIMENSIONS][GameState.BOARD_DIMENSIONS]);
+
+                //stoneBoard = GameState.covertGameStateWithStringToColor(gameState.getGameBoardState());
+
+                for (int i = 0; i < BOARD_DIMENSIONS; i++){
+                    for (int j = 0; j < BOARD_DIMENSIONS; j++){
+                      gameState.getGameBoardState()[i][j] = stoneBoard[i][j].toString();
+                    }
+                }
+
+
+               /* for (int i = 0; i < BOARD_DIMENSIONS; i++) {
+                    for (int j = 0; j < BOARD_DIMENSIONS; j++) {
+                        gameState.getGameBoardState()[i][j] = "#ffffff";
+                    }
+                }
+                gameState.getGameBoardState()[0][0] = "#000000";*/
+                gameState.setNumberOfTurns(numberOfTurns);
+
+                //POŠALJI DRUGOM IGRAČU TEK KAD STISNEMO
+
+                playerOneSendRequest(gameState);
+
                 calculateTerritory();
 
                 if ((playerOneTerritory + playerTwoTerritory) >= MAX_TERRITORY){
@@ -239,13 +281,13 @@ public class GoController {
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("saveGame/gameSave.dat"))){
            GameState gameStateToLoad = (GameState) ois.readObject();
 
-           stoneBoard = GameState.covertGameStateWithStringToColor(gameStateToLoad.getGameBoardState());
+           stoneBoard = GameState.covertGameStateWithStringToColor(gameStateToLoad.getGameBoardState(), circleBoard);
 
            for (int i = 0; i < BOARD_DIMENSIONS; i++){
                for (int j = 0; j < BOARD_DIMENSIONS; j++){
                    Circle circle = (Circle) circleAnchorPane.lookup("#circle"+i+j);
                    circle.setFill(stoneBoard[i][j]);
-                   if (stoneBoard[i][j] != Color.valueOf("#00000000")) {
+                   if (stoneBoard[i][j] != Color.valueOf("#000000")) {
                        circle.setStrokeWidth(1);
                    } else {
                        circle.setStrokeWidth(0);
@@ -264,4 +306,29 @@ public class GoController {
         DocumentationUtils.generateDocumentation();
         DialogUtils.showSuccessDialog("Documentation was successfully generated!");
     }
+
+    private static void playerOneSendRequest( GameState gameState) {
+        // Closing socket will also close the socket's InputStream and OutputStream.
+        try (Socket clientSocket = new Socket(GoBoardGame.HOST, GoBoardGame.PLAYER_TWO_SERVER_PORT)){
+            System.err.println("Client is connecting to " + clientSocket.getInetAddress() + ":" +clientSocket.getPort());
+
+            //sendPrimitiveRequest(clientSocket);
+            sendSerializableRequest(clientSocket, gameState);
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void sendSerializableRequest(Socket client, GameState gameState) throws IOException, ClassNotFoundException {
+        ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
+        ObjectInputStream ois = new ObjectInputStream(client.getInputStream());
+
+
+
+        oos.writeObject(gameState);
+        System.out.println("Game state sent to the Player two!");
+    }
+
+
 }

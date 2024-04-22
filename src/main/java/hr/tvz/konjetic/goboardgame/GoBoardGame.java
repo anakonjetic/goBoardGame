@@ -1,22 +1,39 @@
 package hr.tvz.konjetic.goboardgame;
 
+import hr.tvz.konjetic.goboardgame.exception.WrongPlayerNameException;
+import hr.tvz.konjetic.goboardgame.model.GameState;
 import hr.tvz.konjetic.goboardgame.model.Player;
+import hr.tvz.konjetic.goboardgame.thread.ServerThread;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
+
+import static hr.tvz.konjetic.goboardgame.model.GameState.BOARD_DIMENSIONS;
 
 public class GoBoardGame extends Application {
 
     public static Player player;
 
+    public static Stage mainStage;
+
+    public static final String HOST = "localhost";
+    public static final int PLAYER_TWO_SERVER_PORT = 1989;
+
     @Override
     public void start(Stage stage) throws IOException {
+        mainStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(GoBoardGame.class.getResource("go_board_view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 650);
-        stage.setTitle("Hello!");
+        stage.setTitle(player.name());
         stage.setScene(scene);
         stage.show();
     }
@@ -29,8 +46,28 @@ public class GoBoardGame extends Application {
             player = Player.PLAYER_ONE;
         } else if( Player.valueOf(firstArgument).equals(Player.PLAYER_TWO)){
             player = Player.PLAYER_TWO;
+
+            //kad je bez threada, onda ga starta i čeka odgovor, ne pokrene se prozor od P2
+            //playerTwoAcceptRequests();
+
+            //pokreni server u novoj niti
+            Thread serverStarter = new Thread(new ServerThread());
+            serverStarter.start();
+
+        } else{
+            throw new WrongPlayerNameException("The game was started with the player name: " + firstArgument
+            + ", but only PLAYER_ONE and PLAYER_TWO are allowed.");
         }
 
         launch();
+
     }
+
+
+
+
+
+
+
+
 }

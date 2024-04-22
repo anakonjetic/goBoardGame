@@ -1,6 +1,7 @@
 package hr.tvz.konjetic.goboardgame.model;
 
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,7 +34,7 @@ public class GameState implements Serializable {
         return gameStateWithStrings;
     }
 
-    public static Color[][] covertGameStateWithStringToColor(String[][] gameStateWithStrings) {
+    public static Color[][] covertGameStateWithStringToColor(String[][] gameStateWithStrings, Circle[][] circleBoard) {
 
         Color[][] gameStateWithColors = new Color[BOARD_DIMENSIONS][BOARD_DIMENSIONS];
 
@@ -43,7 +44,45 @@ public class GameState implements Serializable {
             }
         }
 
+        for (int i = 0; i < BOARD_DIMENSIONS; i++){
+            for (int j = 0; j < BOARD_DIMENSIONS; j++){
+                circleBoard[i][j].setFill(gameStateWithColors[i][j]);
+
+                if (circleBoard[i][j].getFill() != Color.valueOf("#000000")) {
+                    circleBoard[i][j].setStrokeWidth(1);
+                } else {
+                    circleBoard[i][j].setStrokeWidth(0);
+                }
+            }
+        }
+
         return gameStateWithColors;
+    }
+
+    public static Circle[][] convertGameStateWithStringToCircle(String[][] gameStateWithStrings, Circle[][] circleBoard) {
+
+        Color[][] gameStateWithColors = new Color[BOARD_DIMENSIONS][BOARD_DIMENSIONS];
+
+        for (int i = 0; i < BOARD_DIMENSIONS; i++) {
+            for (int j = 0; j < BOARD_DIMENSIONS; j++) {
+                gameStateWithColors[i][j] = Color.valueOf(gameStateWithStrings[i][j]);
+            }
+        }
+
+        for (int i = 0; i < BOARD_DIMENSIONS; i++){
+            for (int j = 0; j < BOARD_DIMENSIONS; j++){
+                circleBoard[i][j].setFill(gameStateWithColors[i][j]);
+
+                if (circleBoard[i][j].getFill() != Color.valueOf("#000000")) {
+                    circleBoard[i][j].setStrokeWidth(1);
+                } else {
+                    circleBoard[i][j].setStrokeWidth(0);
+                }
+            }
+        }
+
+        return circleBoard;
+
     }
 
 }

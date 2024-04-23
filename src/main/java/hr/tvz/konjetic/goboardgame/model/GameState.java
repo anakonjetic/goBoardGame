@@ -1,5 +1,6 @@
 package hr.tvz.konjetic.goboardgame.model;
 
+import hr.tvz.konjetic.goboardgame.GoController;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ public class GameState implements Serializable {
 
     private String[][] gameBoardState;
     private Integer numberOfTurns;
+    private PlayerColor currentPlayerColor;
 
     public static String[][] covertGameStateWithColorsToString(Color[][] gameStateWithColors) {
 
@@ -73,10 +75,10 @@ public class GameState implements Serializable {
             for (int j = 0; j < BOARD_DIMENSIONS; j++){
                 circleBoard[i][j].setFill(gameStateWithColors[i][j]);
 
-                if (circleBoard[i][j].getFill() != Color.valueOf("#000000")) {
-                    circleBoard[i][j].setStrokeWidth(1);
-                } else {
+                if (gameStateWithColors[i][j].equals(GoController.COLOR_NOT_PLAYED)) {
                     circleBoard[i][j].setStrokeWidth(0);
+                } else {
+                    circleBoard[i][j].setStrokeWidth(1);
                 }
             }
         }

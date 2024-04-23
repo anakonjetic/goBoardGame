@@ -1,23 +1,15 @@
 package hr.tvz.konjetic.goboardgame;
 
 import hr.tvz.konjetic.goboardgame.exception.WrongPlayerNameException;
-import hr.tvz.konjetic.goboardgame.model.GameState;
 import hr.tvz.konjetic.goboardgame.model.Player;
-import hr.tvz.konjetic.goboardgame.thread.ServerThread;
+import hr.tvz.konjetic.goboardgame.thread.PlayerOneServerThread;
+import hr.tvz.konjetic.goboardgame.thread.PlayerTwoServerThread;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Scanner;
-
-import static hr.tvz.konjetic.goboardgame.model.GameState.BOARD_DIMENSIONS;
 
 public class GoBoardGame extends Application {
 
@@ -27,6 +19,7 @@ public class GoBoardGame extends Application {
 
     public static final String HOST = "localhost";
     public static final int PLAYER_TWO_SERVER_PORT = 1989;
+    public static final int PLAYER_ONE_SERVER_PORT = 1990;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -44,6 +37,9 @@ public class GoBoardGame extends Application {
 
         if (Player.valueOf(firstArgument).equals(Player.PLAYER_ONE)){
             player = Player.PLAYER_ONE;
+            //pokreni server u novoj niti
+            Thread serverStarter = new Thread(new PlayerOneServerThread());
+            serverStarter.start();
         } else if( Player.valueOf(firstArgument).equals(Player.PLAYER_TWO)){
             player = Player.PLAYER_TWO;
 
@@ -51,7 +47,7 @@ public class GoBoardGame extends Application {
             //playerTwoAcceptRequests();
 
             //pokreni server u novoj niti
-            Thread serverStarter = new Thread(new ServerThread());
+            Thread serverStarter = new Thread(new PlayerTwoServerThread());
             serverStarter.start();
 
         } else{

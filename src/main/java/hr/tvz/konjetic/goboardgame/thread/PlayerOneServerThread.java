@@ -3,8 +3,6 @@ package hr.tvz.konjetic.goboardgame.thread;
 import hr.tvz.konjetic.goboardgame.GoController;
 import hr.tvz.konjetic.goboardgame.model.GameState;
 import javafx.application.Platform;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -12,10 +10,9 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import static hr.tvz.konjetic.goboardgame.GoBoardGame.PLAYER_TWO_SERVER_PORT;
-import static hr.tvz.konjetic.goboardgame.model.GameState.BOARD_DIMENSIONS;
+import static hr.tvz.konjetic.goboardgame.GoBoardGame.*;
 
-public class ServerThread implements Runnable{
+public class PlayerOneServerThread implements Runnable{
 
     @Override
     public void run() {
@@ -23,7 +20,7 @@ public class ServerThread implements Runnable{
     }
 
     private static void playerTwoAcceptRequests() {
-        try (ServerSocket serverSocket = new ServerSocket(PLAYER_TWO_SERVER_PORT)){
+        try (ServerSocket serverSocket = new ServerSocket(PLAYER_ONE_SERVER_PORT)){
             System.err.println("Server listening on port: " + serverSocket.getLocalPort());
 
             while (true) {
@@ -48,18 +45,9 @@ public class ServerThread implements Runnable{
 
             GoController.circleBoard = GameState.convertGameStateWithStringToCircle(gameState.getGameBoardState(), GoController.circleBoard);
 
-           /* for (int i = 0; i < BOARD_DIMENSIONS; i++){
-                for (int j = 0; j < BOARD_DIMENSIONS; j++){
-                    Circle circle = (Circle) circleAnchorPane.lookup("#circle"+i+j);
-                    circle.setFill(newGameStataeStoneBoard[i][j]);
-                    if (newGameStataeStoneBoard[i][j] != Color.valueOf("#000000")) {
-                        circle.setStrokeWidth(1);
-                    } else {
-                        circle.setStrokeWidth(0);
-                    }
-                }
-            }*/
-
+            GoController.playerTurn = gameState.getCurrentPlayerColor();
+            GoController.numberOfTurns = gameState.getNumberOfTurns();
+            GoController.deactivateButtons(false);
 
 
             System.out.println("Player two received the game state!");

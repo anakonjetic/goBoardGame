@@ -5,6 +5,7 @@ module hr.tvz.konjetic.goboardgame {
     requires static lombok;
     requires java.desktop;
     requires java.rmi;
+    requires java.naming;
 
 
     opens hr.tvz.konjetic.goboardgame to javafx.fxml;

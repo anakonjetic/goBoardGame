@@ -2,21 +2,21 @@ package hr.tvz.konjetic.goboardgame;
 
 import hr.tvz.konjetic.goboardgame.chat.ChatServer;
 import hr.tvz.konjetic.goboardgame.chat.ChatService;
-import hr.tvz.konjetic.goboardgame.model.GameState;
-import hr.tvz.konjetic.goboardgame.model.Player;
-import hr.tvz.konjetic.goboardgame.model.PlayerColor;
+import hr.tvz.konjetic.goboardgame.jndi.ConfigurationReader;
+import hr.tvz.konjetic.goboardgame.model.*;
+import hr.tvz.konjetic.goboardgame.thread.GetLastGameMoveThread;
+import hr.tvz.konjetic.goboardgame.thread.SaveNewGameMoveThread;
 import hr.tvz.konjetic.goboardgame.utils.DialogUtils;
 import hr.tvz.konjetic.goboardgame.utils.DocumentationUtils;
+import hr.tvz.konjetic.goboardgame.utils.GameMoveUtils;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -35,6 +35,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,9 @@ public class GoController {
     private TextArea chatTextArea;
 
     @FXML
-    private Button sendChatButton;
+    private Label lastGameMoveLabel;
+
+
 
     public static PlayerColor playerTurn = PlayerColor.PLAYER_ONE;
     public static Color[][] stoneBoard = new Color[BOARD_DIMENSIONS][BOARD_DIMENSIONS];
@@ -83,21 +86,32 @@ public class GoController {
             }
         }
 
+
         for (int i = 0; i < BOARD_DIMENSIONS; i++){
             for (int j = 0; j < BOARD_DIMENSIONS; j++){
                 Circle circle = (Circle) circleAnchorPane.lookup("#circle"+i+j);
                 circleBoard[i][j] = circle;
             }
         }
+        if (!GoBoardGame.player.name().equals(Player.SINGLE_PLAYER.name())) {
+            try {
+                String rmiPort = ConfigurationReader.getValue(ConfigurationKey.RMI_PORT);
+                String serverName = ConfigurationReader.getValue(ConfigurationKey.RMI_HOST);
+                Registry registry = LocateRegistry.getRegistry(serverName, Integer.parseInt(rmiPort));
+                stub = (ChatService) registry.lookup(ChatService.REMOTE_OBJECT_NAME);
+            } catch (RemoteException | NotBoundException e) {
+                throw new RuntimeException(e);
+            }
 
-        try {
-            Registry registry = LocateRegistry.getRegistry("localhost", ChatServer.RMI_PORT);
-            stub = (ChatService) registry.lookup(ChatService.REMOTE_OBJECT_NAME);
-        } catch (RemoteException | NotBoundException e) {
-            throw new RuntimeException(e);
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), e -> refreshChatTextArea()));
+            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.playFromStart();
         }
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), e -> refreshChatTextArea()));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), e ->
+        {
+            Platform.runLater(new GetLastGameMoveThread(lastGameMoveLabel));
+        }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.playFromStart();
     }
@@ -156,6 +170,19 @@ public class GoController {
                 circle.setStrokeWidth(1);
                 captureTerritory(playerTurn.equals(PlayerColor.PLAYER_ONE) ? PlayerColor.PLAYER_ONE.getColor() : PlayerColor.PLAYER_TWO.getColor());
                 numberOfTurns++;
+
+                //postavljanje gamemovea i spremanje u datoteku poteza
+                GameMove newGameMove = new GameMove();
+                newGameMove.setPlayerColor(playerTurn);
+                newGameMove.setPositionX(row);
+                newGameMove.setPositionY(column);
+                newGameMove.setLocalDateTime(LocalDateTime.now());
+
+                //GameMoveUtils.saveNewGameMove(newGameMove);
+
+                SaveNewGameMoveThread saveNewGameMoveThread = new SaveNewGameMoveThread(newGameMove);
+                Thread starter = new Thread(saveNewGameMoveThread);
+                starter.start();
 
                 //OVDJE JE UPDATEAN GAME STATE
                 GameState gameState = new GameState();
@@ -376,9 +403,11 @@ public class GoController {
     }
 
     public static void deactivateButtons(Boolean status){
-        for (int i = 0; i < BOARD_DIMENSIONS; i++){
-            for (int j = 0; j < BOARD_DIMENSIONS; j++){
-                circleBoard[i][j].setDisable(status);
+        if (!GoBoardGame.player.name().equals(Player.SINGLE_PLAYER.name())) {
+            for (int i = 0; i < BOARD_DIMENSIONS; i++) {
+                for (int j = 0; j < BOARD_DIMENSIONS; j++) {
+                    circleBoard[i][j].setDisable(status);
+                }
             }
         }
     }

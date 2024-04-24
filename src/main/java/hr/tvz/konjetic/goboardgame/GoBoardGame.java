@@ -1,6 +1,7 @@
 package hr.tvz.konjetic.goboardgame;
 
 import hr.tvz.konjetic.goboardgame.exception.WrongPlayerNameException;
+import hr.tvz.konjetic.goboardgame.jndi.ConfigurationReader;
 import hr.tvz.konjetic.goboardgame.model.Player;
 import hr.tvz.konjetic.goboardgame.thread.PlayerOneServerThread;
 import hr.tvz.konjetic.goboardgame.thread.PlayerTwoServerThread;
@@ -50,6 +51,8 @@ public class GoBoardGame extends Application {
             Thread serverStarter = new Thread(new PlayerTwoServerThread());
             serverStarter.start();
 
+        } else if(Player.valueOf(firstArgument).equals(Player.SINGLE_PLAYER)){
+            player = Player.SINGLE_PLAYER;
         } else{
             throw new WrongPlayerNameException("The game was started with the player name: " + firstArgument
             + ", but only PLAYER_ONE and PLAYER_TWO are allowed.");

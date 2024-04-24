@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -16,45 +17,6 @@
 
 <VBox alignment="CENTER" maxWidth="0.0" prefHeight="650.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.tvz.konjetic.goboardgame.GoController">
    <children>
-      <MenuBar>
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <MenuBar prefHeight="21.0" prefWidth="500.0">
-         <menus>
-            <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#saveGame" text="Save Game" />
-                  <MenuItem mnemonicParsing="false" onAction="#loadGame" text="Load Game" />
-               </items>
-            </Menu>
-            <Menu text="Edit">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#generateHTMLDocumentation" text="Generate" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
       <AnchorPane maxWidth="600.0" prefHeight="650.0" prefWidth="500.0">
          <VBox.margin>
             <Insets />
@@ -169,9 +131,30 @@
                         <Circle fx:id="circle84" fill="TRANSPARENT" layoutX="210.0" layoutY="381.0" onMousePressed="#placeStone" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
                      </children>
                   </AnchorPane>
-                  <Button fx:id="sendChatButton" layoutX="316.0" layoutY="443.0" mnemonicParsing="false" onAction="#sendChatMessage" text="Send Chat Message" />
-                  <TextField fx:id="chatTextField" layoutX="63.0" layoutY="443.0" prefHeight="26.0" prefWidth="250.0" />
-                  <TextArea fx:id="chatTextArea" layoutX="63.0" layoutY="483.0" prefHeight="113.0" prefWidth="374.0" />
+                  <Button fx:id="sendChatButton" layoutX="321.0" layoutY="479.0" mnemonicParsing="false" onAction="#sendChatMessage" text="Send Chat Message" />
+                  <TextField fx:id="chatTextField" layoutX="60.0" layoutY="479.0" prefHeight="26.0" prefWidth="250.0" />
+                  <TextArea fx:id="chatTextArea" layoutX="63.0" layoutY="522.0" prefHeight="113.0" prefWidth="374.0" />
+                  <Label fx:id="lastGameMoveLabel" layoutX="59.0" layoutY="436.0" prefHeight="22.0" prefWidth="381.0" />
+                  <MenuBar layoutX="-4.0" layoutY="1.0" prefHeight="26.0" prefWidth="508.0">
+                     <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#saveGame" text="Save Game" />
+                              <MenuItem mnemonicParsing="false" onAction="#loadGame" text="Load Game" />
+                           </items>
+                        </Menu>
+                        <Menu text="Edit">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#generateHTMLDocumentation" text="Generate" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="About" />
+                           </items>
+                        </Menu>
+                     </menus>
+                  </MenuBar>
                </children>
             </AnchorPane>
          </children>

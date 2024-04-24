@@ -15,12 +15,7 @@ import java.io.*;
 public class GoBoardGame extends Application {
 
     public static Player player;
-
     public static Stage mainStage;
-
-    public static final String HOST = "localhost";
-    public static final int PLAYER_TWO_SERVER_PORT = 1989;
-    public static final int PLAYER_ONE_SERVER_PORT = 1990;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -45,7 +40,6 @@ public class GoBoardGame extends Application {
             player = Player.PLAYER_TWO;
 
             //kad je bez threada, onda ga starta i čeka odgovor, ne pokrene se prozor od P2
-            //playerTwoAcceptRequests();
 
             //pokreni server u novoj niti
             Thread serverStarter = new Thread(new PlayerTwoServerThread());
@@ -61,11 +55,6 @@ public class GoBoardGame extends Application {
         launch();
 
     }
-
-
-
-
-
 
 
 

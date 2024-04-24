@@ -1,13 +1,7 @@
 package hr.tvz.konjetic.goboardgame.jndi;
-
-//import com.sun.jndi.fscontext.RefFSContext;
-//import com.sun.jndi.fscontext.RefFSContextFactory;
-
 import hr.tvz.konjetic.goboardgame.model.ConfigurationKey;
-
 import javax.naming.Context;
 import javax.naming.NamingException;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Hashtable;

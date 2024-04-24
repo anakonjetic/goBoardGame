@@ -4,22 +4,258 @@
 <title>Documentation</title>
 </head>
 <body>
-<h1>List of classes</h1>
-<h2>publichr.tvz.konjetic.goboardgame.GoBoardGame
-</h2>
-<h3>public static final java.lang.String STYLESHEET_CASPIAN</h3>
-<h3>public static final java.lang.String STYLESHEET_MODENA</h3>
-<h2>publichr.tvz.konjetic.goboardgame.GoController
-</h2>
-<h3>public java.lang.Integer capturedP1Stones</h3>
-<h3>public java.lang.Integer capturedP2Stones</h3>
-<h3>public java.lang.Integer playerOneTerritory</h3>
-<h3>public java.lang.Integer playerTwoTerritory</h3>
-<h3>public java.lang.Integer numberOfTurns</h3>
-<h2>publichr.tvz.konjetic.goboardgame.model.GameState
-</h2>
-<h3>public static final int BOARD_DIMENSIONS</h3>
-<h2>publichr.tvz.konjetic.goboardgame.utils.DialogUtils
-</h2>
+<h1>GO Board Game Documentation</h1>
+<h2>public hr.tvz.konjetic.goboardgame.chat.ChatServer</h2>
+<h3>Fields:</h3>
+<p>private static final int RANDOM_PORT_HINT</p>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.chat.ChatServer()</p>
+<h3>Methods:</h3>
+<p>public static void main([Ljava.lang.String; arg0)</p>
+<h2>public abstract interface hr.tvz.konjetic.goboardgame.chat.ChatService</h2>
+<h3>Fields:</h3>
+<p>public static final java.lang.String REMOTE_OBJECT_NAME</p>
+<h3>Methods:</h3>
+<p>public abstract void sendChatMessage(java.lang.String arg0)</p>
+<p>public abstract java.util.List returnChatHistory()</p>
+<h2>public hr.tvz.konjetic.goboardgame.chat.ChatServiceImplementation</h2>
+<h3>Fields:</h3>
+<p>private java.util.List chatMessagesHistory</p>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.chat.ChatServiceImplementation()</p>
+<h3>Methods:</h3>
+<p>public void sendChatMessage(java.lang.String arg0)</p>
+<p>public java.util.List returnChatHistory()</p>
+<h2>public hr.tvz.konjetic.goboardgame.exception.WrongPlayerNameException</h2>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.exception.WrongPlayerNameException()</p>
+<p>public hr.tvz.konjetic.goboardgame.exception.WrongPlayerNameException(java.lang.String arg0)</p>
+<p>public hr.tvz.konjetic.goboardgame.exception.WrongPlayerNameException(java.lang.String arg0, java.lang.Throwable arg1)</p>
+<p>public hr.tvz.konjetic.goboardgame.exception.WrongPlayerNameException(java.lang.Throwable arg0)</p>
+<p>public hr.tvz.konjetic.goboardgame.exception.WrongPlayerNameException(java.lang.String arg0, java.lang.Throwable arg1, boolean arg2, boolean arg3)</p>
+<h2>public hr.tvz.konjetic.goboardgame.GoBoardGame</h2>
+<h3>Fields:</h3>
+<p>public static hr.tvz.konjetic.goboardgame.model.Player player</p>
+<p>public static javafx.stage.Stage mainStage</p>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.GoBoardGame()</p>
+<h3>Methods:</h3>
+<p>public static void main([Ljava.lang.String; arg0)</p>
+<p>public void start(javafx.stage.Stage arg0)</p>
+<h2>public hr.tvz.konjetic.goboardgame.GoController</h2>
+<h3>Fields:</h3>
+<p>public static final int MAX_TERRITORY</p>
+<p>public static hr.tvz.konjetic.goboardgame.model.PlayerColor playerTurn</p>
+<p>public static [[Ljavafx.scene.paint.Color; stoneBoard</p>
+<p>public static [[Ljavafx.scene.shape.Circle; circleBoard</p>
+<p>public static java.lang.Integer capturedP1Stones</p>
+<p>public static java.lang.Integer capturedP2Stones</p>
+<p>public static java.lang.Integer numberOfTurns</p>
+<p>private static hr.tvz.konjetic.goboardgame.chat.ChatService stub</p>
+<p>public javafx.scene.layout.AnchorPane circleAnchorPane</p>
+<p>public static java.lang.Integer playerOneTerritory</p>
+<p>public static java.lang.Integer playerTwoTerritory</p>
+<p>private javafx.scene.control.TextField chatTextField</p>
+<p>private javafx.scene.control.TextArea chatTextArea</p>
+<p>private javafx.scene.control.Label lastGameMoveLabel</p>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.GoController()</p>
+<h3>Methods:</h3>
+<p>public void initialize()</p>
+<p>public void sendChatMessage()</p>
+<p>public void restartGame()</p>
+<p>public void generateHTMLDocumentation()</p>
+<p>private void lambda$initialize$1(javafx.event.ActionEvent arg0)</p>
+<p>private void lambda$initialize$0(javafx.event.ActionEvent arg0)</p>
+<p>public void loadGame()</p>
+<p>public void placeStone(javafx.event.Event arg0)</p>
+<p>public void saveGame()</p>
+<h2>public hr.tvz.konjetic.goboardgame.jndi.ConfigurationReader</h2>
+<h3>Fields:</h3>
+<p>private static final java.lang.String PROVIDER_URL</p>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.jndi.ConfigurationReader()</p>
+<h3>Methods:</h3>
+<p>public static java.lang.String getValue(hr.tvz.konjetic.goboardgame.model.ConfigurationKey arg0)</p>
+<p>private static java.util.Hashtable configureEnvironment()</p>
+<h2>public hr.tvz.konjetic.goboardgame.jndi.InitialDirContextCloseable</h2>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.jndi.InitialDirContextCloseable(java.util.Hashtable arg0)</p>
+<h2>public final hr.tvz.konjetic.goboardgame.model.ConfigurationKey</h2>
+<h3>Fields:</h3>
+<p>public static final hr.tvz.konjetic.goboardgame.model.ConfigurationKey RMI_HOST</p>
+<p>public static final hr.tvz.konjetic.goboardgame.model.ConfigurationKey RMI_PORT</p>
+<p>public static final hr.tvz.konjetic.goboardgame.model.ConfigurationKey PLAYER1_PORT</p>
+<p>public static final hr.tvz.konjetic.goboardgame.model.ConfigurationKey PLAYER2_PORT</p>
+<p>public static final hr.tvz.konjetic.goboardgame.model.ConfigurationKey CHAT_HOST</p>
+<p>private java.lang.String key</p>
+<p>private static final [Lhr.tvz.konjetic.goboardgame.model.ConfigurationKey; $VALUES</p>
+<h3>Constructors:</h3>
+<p>private hr.tvz.konjetic.goboardgame.model.ConfigurationKey(java.lang.String arg0, int arg1, java.lang.String arg2)</p>
+<h3>Methods:</h3>
+<p>public static [Lhr.tvz.konjetic.goboardgame.model.ConfigurationKey; values()</p>
+<p>public static hr.tvz.konjetic.goboardgame.model.ConfigurationKey valueOf(java.lang.String arg0)</p>
+<p>public java.lang.String getKey()</p>
+<p>private static [Lhr.tvz.konjetic.goboardgame.model.ConfigurationKey; $values()</p>
+<h2>public hr.tvz.konjetic.goboardgame.model.GameMove</h2>
+<h3>Fields:</h3>
+<p>private hr.tvz.konjetic.goboardgame.model.PlayerColor playerColor</p>
+<p>private java.lang.Integer positionX</p>
+<p>private java.lang.Integer positionY</p>
+<p>private java.time.LocalDateTime localDateTime</p>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.model.GameMove(hr.tvz.konjetic.goboardgame.model.PlayerColor arg0, java.lang.Integer arg1, java.lang.Integer arg2, java.time.LocalDateTime arg3)</p>
+<p>public hr.tvz.konjetic.goboardgame.model.GameMove()</p>
+<h3>Methods:</h3>
+<p>public boolean equals(java.lang.Object arg0)</p>
+<p>public java.lang.String toString()</p>
+<p>public int hashCode()</p>
+<p>public java.lang.Integer getPositionY()</p>
+<p>public java.lang.Integer getPositionX()</p>
+<p>public java.time.LocalDateTime getLocalDateTime()</p>
+<p>public void setLocalDateTime(java.time.LocalDateTime arg0)</p>
+<p>public hr.tvz.konjetic.goboardgame.model.PlayerColor getPlayerColor()</p>
+<p>public void setPlayerColor(hr.tvz.konjetic.goboardgame.model.PlayerColor arg0)</p>
+<p>public void setPositionX(java.lang.Integer arg0)</p>
+<p>public void setPositionY(java.lang.Integer arg0)</p>
+<p>protected boolean canEqual(java.lang.Object arg0)</p>
+<h2>public hr.tvz.konjetic.goboardgame.model.GameState</h2>
+<h3>Fields:</h3>
+<p>public static final int BOARD_DIMENSIONS</p>
+<p>private [[Ljava.lang.String; gameBoardState</p>
+<p>private java.lang.Integer numberOfTurns</p>
+<p>private hr.tvz.konjetic.goboardgame.model.PlayerColor currentPlayerColor</p>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.model.GameState([[Ljava.lang.String; arg0, java.lang.Integer arg1, hr.tvz.konjetic.goboardgame.model.PlayerColor arg2)</p>
+<p>public hr.tvz.konjetic.goboardgame.model.GameState()</p>
+<h3>Methods:</h3>
+<p>public static [[Ljava.lang.String; covertGameStateWithColorsToString([[Ljavafx.scene.paint.Color; arg0)</p>
+<p>public boolean equals(java.lang.Object arg0)</p>
+<p>public java.lang.String toString()</p>
+<p>public int hashCode()</p>
+<p>public java.lang.Integer getNumberOfTurns()</p>
+<p>public [[Ljava.lang.String; getGameBoardState()</p>
+<p>public hr.tvz.konjetic.goboardgame.model.PlayerColor getCurrentPlayerColor()</p>
+<p>public static [[Ljavafx.scene.paint.Color; covertGameStateWithStringToColor([[Ljava.lang.String; arg0, [[Ljavafx.scene.shape.Circle; arg1)</p>
+<p>public static [[Ljavafx.scene.shape.Circle; convertGameStateWithStringToCircle([[Ljava.lang.String; arg0, [[Ljavafx.scene.shape.Circle; arg1)</p>
+<p>public void setGameBoardState([[Ljava.lang.String; arg0)</p>
+<p>public void setNumberOfTurns(java.lang.Integer arg0)</p>
+<p>protected boolean canEqual(java.lang.Object arg0)</p>
+<p>public void setCurrentPlayerColor(hr.tvz.konjetic.goboardgame.model.PlayerColor arg0)</p>
+<h2>public final hr.tvz.konjetic.goboardgame.model.Player</h2>
+<h3>Fields:</h3>
+<p>public static final hr.tvz.konjetic.goboardgame.model.Player PLAYER_ONE</p>
+<p>public static final hr.tvz.konjetic.goboardgame.model.Player PLAYER_TWO</p>
+<p>public static final hr.tvz.konjetic.goboardgame.model.Player SINGLE_PLAYER</p>
+<p>private static final [Lhr.tvz.konjetic.goboardgame.model.Player; $VALUES</p>
+<h3>Constructors:</h3>
+<p>private hr.tvz.konjetic.goboardgame.model.Player(java.lang.String arg0, int arg1)</p>
+<h3>Methods:</h3>
+<p>public static [Lhr.tvz.konjetic.goboardgame.model.Player; values()</p>
+<p>public static hr.tvz.konjetic.goboardgame.model.Player valueOf(java.lang.String arg0)</p>
+<p>private static [Lhr.tvz.konjetic.goboardgame.model.Player; $values()</p>
+<h2>public final hr.tvz.konjetic.goboardgame.model.PlayerColor</h2>
+<h3>Fields:</h3>
+<p>public static final hr.tvz.konjetic.goboardgame.model.PlayerColor PLAYER_ONE</p>
+<p>public static final hr.tvz.konjetic.goboardgame.model.PlayerColor PLAYER_TWO</p>
+<p>public static final hr.tvz.konjetic.goboardgame.model.PlayerColor NOT_PLAYED</p>
+<p>private final javafx.scene.paint.Color color</p>
+<p>private static final [Lhr.tvz.konjetic.goboardgame.model.PlayerColor; $VALUES</p>
+<h3>Constructors:</h3>
+<p>private hr.tvz.konjetic.goboardgame.model.PlayerColor(java.lang.String arg0, int arg1, javafx.scene.paint.Color arg2)</p>
+<h3>Methods:</h3>
+<p>public static [Lhr.tvz.konjetic.goboardgame.model.PlayerColor; values()</p>
+<p>public static hr.tvz.konjetic.goboardgame.model.PlayerColor valueOf(java.lang.String arg0)</p>
+<p>private static [Lhr.tvz.konjetic.goboardgame.model.PlayerColor; $values()</p>
+<p>public javafx.scene.paint.Color getColor()</p>
+<h2>public abstract hr.tvz.konjetic.goboardgame.thread.GameMoveThread</h2>
+<h3>Fields:</h3>
+<p>private static java.lang.Boolean gameMoveFileAccessInProgress</p>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.thread.GameMoveThread()</p>
+<h3>Methods:</h3>
+<p>protected synchronized hr.tvz.konjetic.goboardgame.model.GameMove getLastGameMoveFromFile()</p>
+<p>protected synchronized void saveNewGameMoveToFile(hr.tvz.konjetic.goboardgame.model.GameMove arg0)</p>
+<h2>public hr.tvz.konjetic.goboardgame.thread.GetLastGameMoveThread</h2>
+<h3>Fields:</h3>
+<p>private javafx.scene.control.Label label</p>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.thread.GetLastGameMoveThread(javafx.scene.control.Label arg0)</p>
+<h3>Methods:</h3>
+<p>public void run()</p>
+<h2>public hr.tvz.konjetic.goboardgame.thread.PlayerOneServerThread</h2>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.thread.PlayerOneServerThread()</p>
+<h3>Methods:</h3>
+<p>public void run()</p>
+<p>private static void lambda$playerTwoAcceptRequests$0(java.net.Socket arg0, hr.tvz.konjetic.goboardgame.GoController arg1)</p>
+<p>private static void playerTwoAcceptRequests()</p>
+<p>private static void processSerializableClient(java.net.Socket arg0, hr.tvz.konjetic.goboardgame.GoController arg1)</p>
+<h2>public hr.tvz.konjetic.goboardgame.thread.PlayerTwoServerThread</h2>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.thread.PlayerTwoServerThread()</p>
+<h3>Methods:</h3>
+<p>public void run()</p>
+<p>private static void lambda$playerTwoAcceptRequests$0(java.net.Socket arg0, hr.tvz.konjetic.goboardgame.GoController arg1)</p>
+<p>private static void playerTwoAcceptRequests()</p>
+<p>private static void processSerializableClient(java.net.Socket arg0, hr.tvz.konjetic.goboardgame.GoController arg1)</p>
+<h2>public hr.tvz.konjetic.goboardgame.thread.SaveNewGameMoveThread</h2>
+<h3>Fields:</h3>
+<p>private hr.tvz.konjetic.goboardgame.model.GameMove gameMove</p>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.thread.SaveNewGameMoveThread(hr.tvz.konjetic.goboardgame.model.GameMove arg0)</p>
+<h3>Methods:</h3>
+<p>public void run()</p>
+<h2>public hr.tvz.konjetic.goboardgame.utils.ChatUtils</h2>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.utils.ChatUtils()</p>
+<h3>Methods:</h3>
+<p>public static void refreshChatTextArea(hr.tvz.konjetic.goboardgame.chat.ChatService arg0, javafx.scene.control.TextArea arg1)</p>
+<h2>public hr.tvz.konjetic.goboardgame.utils.DialogUtils</h2>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.utils.DialogUtils()</p>
+<h3>Methods:</h3>
+<p>public static void showSuccessDialog(java.lang.String arg0)</p>
+<p>public static void showWinningDialog(hr.tvz.konjetic.goboardgame.model.Player arg0)</p>
+<h2>public hr.tvz.konjetic.goboardgame.utils.DocumentationUtils</h2>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.utils.DocumentationUtils()</p>
+<h3>Methods:</h3>
+<p>public static void generateDocumentation()</p>
+<p>private static boolean lambda$generateDocumentation$0(java.nio.file.Path arg0)</p>
+<p>private static boolean lambda$generateDocumentation$1(java.nio.file.Path arg0)</p>
+<h2>public hr.tvz.konjetic.goboardgame.utils.GameEngineUtils</h2>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.utils.GameEngineUtils()</p>
+<h3>Methods:</h3>
+<p>public static boolean isPositionValid(int arg0, int arg1, [[Ljavafx.scene.paint.Color; arg2)</p>
+<p>public static void captureTerritory(javafx.scene.paint.Color arg0, javafx.scene.layout.AnchorPane arg1, hr.tvz.konjetic.goboardgame.model.PlayerColor arg2)</p>
+<p>public static void calculateTerritory([[Ljavafx.scene.paint.Color; arg0)</p>
+<p>public static void checkWinner(javafx.scene.layout.AnchorPane arg0, [[Ljavafx.scene.paint.Color; arg1)</p>
+<p>public static java.lang.Integer calculateSpecificPlayerTerritory(javafx.scene.paint.Color arg0, [[Ljavafx.scene.paint.Color; arg1)</p>
+<p>private static void lambda$resetGame$0(javafx.scene.Node arg0)</p>
+<p>public static void resetGame(javafx.scene.layout.AnchorPane arg0)</p>
+<p>public static java.lang.Integer calculateEmptyPositionsTerritoryPoints(javafx.scene.paint.Color arg0, java.util.List arg1, [[Ljavafx.scene.paint.Color; arg2)</p>
+<p>public static java.util.List getPositionsNeighbors(int arg0, int arg1)</p>
+<p>public static javafx.scene.shape.Circle getCircleByPosition(int arg0, int arg1, javafx.scene.layout.AnchorPane arg2)</p>
+<h2>public hr.tvz.konjetic.goboardgame.utils.GameMoveUtils</h2>
+<h3>Fields:</h3>
+<p>private static final java.lang.String GAME_MOVE_HISTORY_FILE_NAME</p>
+<p>private static java.util.List gameMoveList</p>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.utils.GameMoveUtils()</p>
+<h3>Methods:</h3>
+<p>public static hr.tvz.konjetic.goboardgame.model.GameMove getNewGameMove()</p>
+<p>public static void saveNewGameMove(hr.tvz.konjetic.goboardgame.model.GameMove arg0)</p>
+<h2>public hr.tvz.konjetic.goboardgame.utils.MultiPlayerUtils</h2>
+<h3>Constructors:</h3>
+<p>public hr.tvz.konjetic.goboardgame.utils.MultiPlayerUtils()</p>
+<h3>Methods:</h3>
+<p>public static void deactivateButtons(java.lang.Boolean arg0, [[Ljavafx.scene.shape.Circle; arg1)</p>
+<p>public static void updateGameStateAfterAction([[Ljavafx.scene.paint.Color; arg0)</p>
+<p>public static void sendSerializableRequestToPlayerOne(java.net.Socket arg0, hr.tvz.konjetic.goboardgame.model.GameState arg1)</p>
+<p>public static void sendSerializableRequestToPlayerTwo(java.net.Socket arg0, hr.tvz.konjetic.goboardgame.model.GameState arg1)</p>
+<p>public static void playerOneSendRequest(hr.tvz.konjetic.goboardgame.model.GameState arg0)</p>
+<p>public static void playerTwoSendRequest(hr.tvz.konjetic.goboardgame.model.GameState arg0)</p>
 </body>
 </html>

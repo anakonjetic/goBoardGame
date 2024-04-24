@@ -137,20 +137,16 @@
                   <Label fx:id="lastGameMoveLabel" layoutX="59.0" layoutY="436.0" prefHeight="22.0" prefWidth="381.0" />
                   <MenuBar layoutX="-4.0" layoutY="1.0" prefHeight="26.0" prefWidth="508.0">
                      <menus>
-                        <Menu mnemonicParsing="false" text="File">
+                        <Menu mnemonicParsing="false" text="Game">
                            <items>
+                              <MenuItem mnemonicParsing="false" onAction="#restartGame" text="New Game" />
                               <MenuItem mnemonicParsing="false" onAction="#saveGame" text="Save Game" />
                               <MenuItem mnemonicParsing="false" onAction="#loadGame" text="Load Game" />
                            </items>
                         </Menu>
-                        <Menu text="Edit">
+                        <Menu text="Documentation">
                            <items>
-                              <MenuItem mnemonicParsing="false" onAction="#generateHTMLDocumentation" text="Generate" />
-                           </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="About" />
+                              <MenuItem mnemonicParsing="false" onAction="#generateHTMLDocumentation" text="Generate New" />
                            </items>
                         </Menu>
                      </menus>

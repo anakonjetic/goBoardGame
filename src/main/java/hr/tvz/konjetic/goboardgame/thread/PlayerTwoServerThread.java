@@ -1,7 +1,10 @@
 package hr.tvz.konjetic.goboardgame.thread;
 
 import hr.tvz.konjetic.goboardgame.GoController;
+import hr.tvz.konjetic.goboardgame.jndi.ConfigurationReader;
+import hr.tvz.konjetic.goboardgame.model.ConfigurationKey;
 import hr.tvz.konjetic.goboardgame.model.GameState;
+import hr.tvz.konjetic.goboardgame.utils.MultiPlayerUtils;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -10,7 +13,6 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import static hr.tvz.konjetic.goboardgame.GoBoardGame.PLAYER_TWO_SERVER_PORT;
 
 public class PlayerTwoServerThread implements Runnable{
 
@@ -20,14 +22,14 @@ public class PlayerTwoServerThread implements Runnable{
     }
 
     private static void playerTwoAcceptRequests() {
-        try (ServerSocket serverSocket = new ServerSocket(PLAYER_TWO_SERVER_PORT)){
+        String playerTwoPort = ConfigurationReader.getValue(ConfigurationKey.PLAYER2_PORT);
+        try (ServerSocket serverSocket = new ServerSocket(Integer.parseInt(playerTwoPort))){
             System.err.println("Server listening on port: " + serverSocket.getLocalPort());
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.err.println("Client connected from port: " + clientSocket.getPort());
                 GoController newInstance = new GoController();
-                //new Thread(() ->  processSerializableClient(clientSocket)).start();
                 Platform.runLater(() -> processSerializableClient(clientSocket, newInstance));
             }
         }  catch (IOException e) {
@@ -47,8 +49,7 @@ public class PlayerTwoServerThread implements Runnable{
 
             GoController.playerTurn = gameState.getCurrentPlayerColor();
             GoController.numberOfTurns = gameState.getNumberOfTurns();
-            GoController.deactivateButtons(false);
-
+            MultiPlayerUtils.deactivateButtons(false, GoController.circleBoard);
 
             System.out.println("Player two received the game state!");
             oos.writeObject("Player two received the game state - confirmation");

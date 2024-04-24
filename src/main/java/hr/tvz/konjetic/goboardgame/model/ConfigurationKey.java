@@ -5,11 +5,11 @@ import lombok.Getter;
 @Getter
 public enum ConfigurationKey {
 
-    RMI_HOST("rmi.host"), RMI_PORT("rmi.port");
+    RMI_HOST("rmi.host"), RMI_PORT("rmi.port"), PLAYER1_PORT("player1.port"), PLAYER2_PORT("player2.port"), CHAT_HOST("localhost");
 
     private String key;
 
-    private ConfigurationKey(String key) {
+    ConfigurationKey(String key) {
         this.key = key;
     }
 }

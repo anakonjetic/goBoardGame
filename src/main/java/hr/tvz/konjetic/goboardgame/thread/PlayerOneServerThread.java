@@ -1,7 +1,10 @@
 package hr.tvz.konjetic.goboardgame.thread;
 
 import hr.tvz.konjetic.goboardgame.GoController;
+import hr.tvz.konjetic.goboardgame.jndi.ConfigurationReader;
+import hr.tvz.konjetic.goboardgame.model.ConfigurationKey;
 import hr.tvz.konjetic.goboardgame.model.GameState;
+import hr.tvz.konjetic.goboardgame.utils.MultiPlayerUtils;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -20,7 +23,8 @@ public class PlayerOneServerThread implements Runnable{
     }
 
     private static void playerTwoAcceptRequests() {
-        try (ServerSocket serverSocket = new ServerSocket(PLAYER_ONE_SERVER_PORT)){
+        String playerOnePort = ConfigurationReader.getValue(ConfigurationKey.PLAYER1_PORT);
+        try (ServerSocket serverSocket = new ServerSocket(Integer.parseInt(playerOnePort))){
             System.err.println("Server listening on port: " + serverSocket.getLocalPort());
 
             while (true) {
@@ -47,7 +51,7 @@ public class PlayerOneServerThread implements Runnable{
 
             GoController.playerTurn = gameState.getCurrentPlayerColor();
             GoController.numberOfTurns = gameState.getNumberOfTurns();
-            GoController.deactivateButtons(false);
+            MultiPlayerUtils.deactivateButtons(false, GoController.circleBoard);
 
 
             System.out.println("Player two received the game state!");

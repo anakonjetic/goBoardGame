@@ -15,9 +15,6 @@ public class GameState implements Serializable {
 
     public static final int BOARD_DIMENSIONS = 9;
 
-    //stanje na ploci igre
-    //trenutni broj poteza
-
     private String[][] gameBoardState;
     private Integer numberOfTurns;
     private PlayerColor currentPlayerColor;

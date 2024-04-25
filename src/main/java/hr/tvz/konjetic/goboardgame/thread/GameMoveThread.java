@@ -25,7 +25,6 @@ public abstract class GameMoveThread {
         notifyAll();
     }
 
-    //synch je tu da se metode ne preklapaju, nego da budu sinkronizirane
     protected synchronized GameMove getLastGameMoveFromFile(){
         while(gameMoveFileAccessInProgress){
             try {

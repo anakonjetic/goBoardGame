@@ -83,7 +83,7 @@ public class MultiPlayerUtils {
         }
         gameState.setNumberOfTurns(GoController.numberOfTurns);
         gameState.setCurrentPlayerColor(GoController.playerTurn.equals(PlayerColor.PLAYER_ONE) ? PlayerColor.PLAYER_TWO : PlayerColor.PLAYER_ONE);
-        //POŠALJI DRUGOM IGRAČU TEK KAD STISNEMO
+
         if (GoBoardGame.player.name().equals(Player.PLAYER_ONE.name())) {
             MultiPlayerUtils.playerOneSendRequest(gameState);
         } else if (GoBoardGame.player.name().equals(Player.PLAYER_TWO.name())) {

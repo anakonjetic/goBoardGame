@@ -15,7 +15,6 @@ public class GameMoveUtils {
 
         gameMoveList.add(newGameMove);
 
-        //spremanje u serijaliziranu datoteku
         try (ObjectOutputStream oos = new ObjectOutputStream(
                     new FileOutputStream(GAME_MOVE_HISTORY_FILE_NAME))){
             oos.writeObject(gameMoveList);

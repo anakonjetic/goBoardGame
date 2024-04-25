@@ -34,7 +34,6 @@ public class GameEngineUtils {
         return numberOfTerritories;
     }
 
-    //broje se prazna polja koja imaju obojane susjede
     public static Integer calculateEmptyPositionsTerritoryPoints(Color color, List<int[]> neighbors, Color[][] stoneBoard){
         Integer territoryPoints = 0;
 
@@ -50,7 +49,6 @@ public class GameEngineUtils {
         return territoryPoints;
     }
 
-    //traženje susjeda
     public static List<int[]> getPositionsNeighbors(int row, int column){
         List<int[]> neighbors = new ArrayList<>();
 
@@ -90,6 +88,8 @@ public class GameEngineUtils {
                 GoController.stoneBoard[i][j] = PlayerColor.NOT_PLAYED.getColor();
             }
         }
+
+        GoController.playerTurn = PlayerColor.PLAYER_ONE;
     }
 
     public static boolean isPositionValid(int row, int column, Color[][] stoneBoard) {

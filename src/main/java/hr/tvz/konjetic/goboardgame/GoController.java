@@ -46,29 +46,34 @@ public class GoController {
     private TextArea chatTextArea;
     @FXML
     private Label lastGameMoveLabel;
+    @FXML
+    private Button sendChatButton;
 
     @FXML
     public void initialize() {
-        //postavljanje vrijednosti prazne boje na sva polja
+
         for (int i = 0; i < BOARD_DIMENSIONS; i++) {
             for (int j = 0; j < BOARD_DIMENSIONS; j++) {
                 stoneBoard[i][j] = PlayerColor.NOT_PLAYED.getColor();
             }
         }
-        //inicijalizacija polja krugova
+
         for (int i = 0; i < BOARD_DIMENSIONS; i++) {
             for (int j = 0; j < BOARD_DIMENSIONS; j++) {
                 Circle circle = (Circle) circleAnchorPane.lookup("#circle" + i + j);
                 circleBoard[i][j] = circle;
             }
         }
-        //postavljanje chat servisa za multiplayer
+
         if (!GoBoardGame.player.name().equals(Player.SINGLE_PLAYER.name())) {
             try {
                 String rmiPort = ConfigurationReader.getValue(ConfigurationKey.RMI_PORT);
                 String serverName = ConfigurationReader.getValue(ConfigurationKey.RMI_HOST);
                 Registry registry = LocateRegistry.getRegistry(serverName, Integer.parseInt(rmiPort));
                 stub = (ChatService) registry.lookup(ChatService.REMOTE_OBJECT_NAME);
+                chatTextArea.setVisible(true);
+                chatTextField.setVisible(true);
+                sendChatButton.setVisible(true);
             } catch (RemoteException | NotBoundException e) {
                 throw new RuntimeException(e);
             }
@@ -76,8 +81,13 @@ public class GoController {
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), e -> ChatUtils.refreshChatTextArea(stub, chatTextArea)));
             timeline.setCycleCount(Animation.INDEFINITE);
             timeline.playFromStart();
+        } else {
+
+            chatTextArea.setVisible(false);
+            chatTextField.setVisible(false);
+            sendChatButton.setVisible(false);
         }
-        //postavljanje labele koja se stalno refresha
+
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), e -> Platform.runLater(new GetLastGameMoveThread(lastGameMoveLabel))));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.playFromStart();
@@ -101,10 +111,10 @@ public class GoController {
     public void placeStone(Event event) {
 
         if (event.getSource() instanceof Circle circle) {
-            //iz imena izvuče koji je circle u pitanju
+
             int row = Character.getNumericValue(circle.getId().charAt(6));
             int column = Character.getNumericValue(circle.getId().charAt(7));
-            //boja kuglu
+
             if (GameEngineUtils.isPositionValid(row, column, stoneBoard)) {
                 stoneBoard[row][column] = playerTurn.equals(PlayerColor.PLAYER_ONE) ? PlayerColor.PLAYER_ONE.getColor() : PlayerColor.PLAYER_TWO.getColor();
                 System.out.println(stoneBoard[row][column].toString());
@@ -112,18 +122,18 @@ public class GoController {
                 circle.setStrokeWidth(1);
                 GameEngineUtils.captureTerritory(playerTurn.equals(PlayerColor.PLAYER_ONE) ? PlayerColor.PLAYER_ONE.getColor() : PlayerColor.PLAYER_TWO.getColor(), circleAnchorPane, playerTurn);
                 numberOfTurns++;
-                //postavljanje gamemovea i spremanje u datoteku poteza
+
                 GameMove newGameMove = new GameMove(playerTurn, row, column, LocalDateTime.now());
-                //spremanje preko threada
+
                 SaveNewGameMoveThread saveNewGameMoveThread = new SaveNewGameMoveThread(newGameMove);
                 Thread starter = new Thread(saveNewGameMoveThread);
                 starter.start();
-                //OVDJE JE UPDATEAN GAME STATE
+
                 MultiPlayerUtils.updateGameStateAfterAction(stoneBoard);
                 MultiPlayerUtils.deactivateButtons(true, circleBoard);
                 GameEngineUtils.calculateTerritory(stoneBoard);
                 GameEngineUtils.checkWinner(circleAnchorPane, stoneBoard);
-                //UPDATE GAME STATEA
+
                 MultiPlayerUtils.updateGameStateAfterAction(stoneBoard);
                 playerTurn = playerTurn.equals(PlayerColor.PLAYER_ONE) ? PlayerColor.PLAYER_TWO : PlayerColor.PLAYER_ONE;
             }

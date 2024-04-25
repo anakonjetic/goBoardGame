@@ -33,15 +33,13 @@ public class GoBoardGame extends Application {
 
         if (Player.valueOf(firstArgument).equals(Player.PLAYER_ONE)){
             player = Player.PLAYER_ONE;
-            //pokreni server u novoj niti
+
             Thread serverStarter = new Thread(new PlayerOneServerThread());
             serverStarter.start();
         } else if( Player.valueOf(firstArgument).equals(Player.PLAYER_TWO)){
             player = Player.PLAYER_TWO;
 
-            //kad je bez threada, onda ga starta i čeka odgovor, ne pokrene se prozor od P2
 
-            //pokreni server u novoj niti
             Thread serverStarter = new Thread(new PlayerTwoServerThread());
             serverStarter.start();
 

@@ -30,19 +30,18 @@ public class PlayerTwoServerThread implements Runnable{
                 Socket clientSocket = serverSocket.accept();
                 System.err.println("Client connected from port: " + clientSocket.getPort());
                 GoController newInstance = new GoController();
-                Platform.runLater(() -> processSerializableClient(clientSocket, newInstance));
+                Platform.runLater(() -> processSerializableClient(clientSocket));
             }
         }  catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static void processSerializableClient(Socket clientSocket, GoController controller) {
+    private static void processSerializableClient(Socket clientSocket) {
         try (ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
              ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());){
             GameState gameState = (GameState)ois.readObject();
 
-            //možda da namjestim da se ovo sve u convertu riješi, ne dolje
             GoController.stoneBoard = GameState.covertGameStateWithStringToColor(gameState.getGameBoardState(), GoController.circleBoard);
 
             GoController.circleBoard = GameState.convertGameStateWithStringToCircle(gameState.getGameBoardState(), GoController.circleBoard);
